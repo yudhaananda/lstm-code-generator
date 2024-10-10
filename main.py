@@ -14,7 +14,7 @@ def generate():
     data = request.json
     seed_text = data['seed_text']
 
-    generated_code = generate_code(seed_text, 8) 
+    generated_code = generate_code(seed_text, 20) 
 
     return jsonify({"generated_code": generated_code})
 
@@ -93,7 +93,8 @@ if __name__ == "__main__":
         hidden = model.init_hidden(1)
         
         with torch.no_grad():
-            for _ in range(length):
+            count=0
+            while True:
                 output, hidden = model(input_seq, hidden)
                 predicted_word_idx = torch.argmax(output).item()
                 predicted_word = idx_to_word[predicted_word_idx]
@@ -101,6 +102,9 @@ if __name__ == "__main__":
                 
                 # Update input sequence with the predicted character
                 input_seq = torch.cat([input_seq[:, 1:], torch.tensor([[predicted_word_idx]], dtype=torch.long).to(device)], dim=1)
+                if count>=length or predicted_word=='}':
+                    break
+                count+=1
         
         return generated
     app.run(host="0.0.0.0")
