@@ -5,6 +5,8 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import PreTrainedModel, PretrainedConfig
 import torch
 import json
+import gdown
+
 
 app = Flask(__name__)
 
@@ -20,7 +22,16 @@ def generate():
 
     return jsonify({"generated_code": generated_code})
 
+def download(file_id, file_name):
+    # Create the download URL
+    download_url = f'https://drive.google.com/uc?id={file_id}'
+
+    # Download the file
+    gdown.download(download_url, file_name, quiet=False)
+
 if __name__ == "__main__":
+    download('1gQHadxDcixeuyzGNpb84BKxTzfxrZxmK','pytorch_model.bin')
+    download('1lCajyb6I5N_-0VXeHfF0Z-VxX4NorScg','tokenizer.json')
     # Load the JSON file into a Python dictionary
     with open('tokenizer.json', 'r') as file:
         token = json.load(file)
