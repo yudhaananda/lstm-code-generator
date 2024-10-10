@@ -1,4 +1,5 @@
-```Config:{
+```
+Config:{
     "sequence_length": 50, 
     "hidden_size": 128, 
     "batch_size": 64, 
