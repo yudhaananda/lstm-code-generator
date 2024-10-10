@@ -13,8 +13,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --upgrade pip
-RUN pip install torch torchvision transformers flask
+RUN pip install --upgrade pip && \
+    pip install torch transformers flask gdown && \
+    rm -rf ~/.cache/pip
 
 # Expose the port the app runs on
 EXPOSE 5000
