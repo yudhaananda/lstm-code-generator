@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     # Hyperparameters
     hidden_size = 128
-    app.run(debug=False)
+    app.run(host="0.0.0.0")
 
 class LSTMModelConfig(PretrainedConfig):
     model_type = "LSTM"
